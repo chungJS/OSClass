@@ -1,35 +1,17 @@
-# CPU Scheduling
+# 운영체제 스케쥴링
 
-I implemented FCFS (First-Come-First-Served), SJF (Shortest Job First), and RR (Round Robin) scheduling algorithms in Java.
+FCFS, SJF, RR을 자바로 구현해 보았다.
 
-This implementation is modular and extensible, employing design patterns to improve code organization and maintainability.
+프로세스 상태 다이어그램을 기반으로 스테이트 패턴을 사용해 프로세스 상태에 따라 적절한 값 조정을 해주고 스트레티지 패턴을 사용해 원하는 스케쥴링 알고리즘을 사용할 수 있도록 구현해 보았다.
 
-- [Class Diagram](#class-diagram)
-- [Features](#Features)
-- [Usage](#Diagram)
-- [Result](#Prerequisite)
+## 클래스 다이어그램
 
-## Class Diagram
-
-![classdiagram](img/1.png)
-
-## Features
-
-1. Simulation of Scheduling Algorithms
-- Supports the simulation of FCFS, SJF, and RR scheduling algorithms.
-2. Process State Management
-- Processes are handled according to the Process State Diagram, ensuring realistic transitions (e.g., Ready → Running → Blocked).
-
-![processdiagram](img/2.png)
-
-3. Use of Design Patterns
-- State Pattern: Dynamically adjusts process behavior based on its current state (e.g., Ready, Running, Blocked), as defined in the Process State Diagram.
-- Strategy Pattern: Enables seamless switching between scheduling algorithms (FCFS, SJF, RR) without modifying core process logic.
+![스크린샷 2023-05-23 오후 10.03.21.png](img/1.png)
 
 ## 결과
 
-### 요약
 
+### 요약
 testcase 1~3은 모든 스케쥴링 알고리즘의 결과 값이 같음
 
 testcase 4는 매번 다른 결과를 출력함
@@ -94,6 +76,90 @@ testcase 4
 ```java
 매번 랜덤한 값
 ```
+
+---
+
+## 결과 스크린 샷
+
+testcase 1
+
+```python
+1 (0 5 1 0)
+```
+
+![test1.FCFS.png](img/test1.FCFS.png)
+
+![test1.RRwith1.png](img/test1.RRwith1.png)
+
+![test1.RRwith10.png](img/test1.RRwith10.png)
+
+![test1.RRwith100.png](img/test1.RRwith100.png)
+
+![test1.SJF.png](img/test1.SJF.png)
+
+---
+
+testcase 2
+
+```python
+1 (0 5 1 1)
+```
+
+![test2.FCFS.png](img/test2.FCFS.png)
+
+![test2.RRwith1.png](img/test2.RRwith1.png)
+
+![test2.RRwith10.png](img/test2.RRwith10.png)
+
+![test2.RRwith100.png](img/test2.RRwith100.png)
+
+![test2.SJF.png](img/test2.SJF.png)
+
+---
+
+testcase 3
+
+```python
+3 (0 5 1 1)(0 5 1 1)(3 5 1 1)
+```
+
+![test3.FCFS.png](img/test3.FCFS.png)
+
+![test3.RRwith1.png](img/test3.RRwith1.png)
+
+![test3.RRwith10.png](img/test3.RRwith10.png)
+
+![test3.RRwith100.png](img/test3.RRwith100.png)
+
+![test3.SJF.png](img/test3.SJF.png)
+
+---
+
+testcase 4
+
+```python
+5 (0 200 3 3)(0 500 9 3)(0 500 20 3)(100 100 1 0)(100 500 100 3)
+```
+
+![test4.FCFS-1.png](img/test4.FCFS-1.png)
+
+![test4.FCFS-2.png](img/test4.FCFS-2.png)
+
+![test4.RRwith1-1.png](img/test4.RRwith1-1.png)
+
+![test4.RRwith1-2.png](img/test4.RRwith1-2.png)
+
+![test4.RRwith10-1.png](img/test4.RRwith10-1.png)
+
+![test4.RRwith10-2.png](img/test4.RRwith10-2.png)
+
+![test4.RRwith100-1.png](img/test4.RRwith100-1.png)
+
+![test4.RRwith100-2.png](img/test4.RRwith100-2.png)
+
+![test4.SJF-1.png](img/test4.SJF-1.png)
+
+![test4.SJF-2.png](img/test4.SJF-2.png)
 
 ## Main.java 해설
 
@@ -413,13 +479,13 @@ queuing 스트레티지를 보면 q_sch와 pq_sch가 있다.
 
 q는 Queue이고 pq는 PriorityQueue를 뜻하는 것이다.
 
-q_sch는 FCFS,RR같은 먼저 들어오는데로 먼저 실행되는 스케쥴러를 위한 ready큐를 구현하기 위함이고
+q_sch는 FCFS,RR같은 먼저 들어오는데로 먼저 실행되는 스케쥴러를 위한 ready큐를 구현하기 위함이고 
 
 pq_sch는 SJF처럼 cpu burst 크기에 의해 순서가 정렬되어야하는 스케쥴러의 ready큐를 구현하기 위함이다.
 
 왜 정렬 알고리즘을 사용하지 않고 굳이 PriorityQueue를 사용한 이유는 java.util.PriorityQueue의 우선순위큐는 우선순위 힙으로서 구현되어있기 때문이다.
 
-cpu burst로 비교해 sorting 할때 만약에 priority queue를 쓸 경우 힙 형태로 만들어져 있기에 추가할때만 O(logn)의 시간이 걸리지만 priority queue가 아니면 최악의 경우 O(n^2)의 시간이 걸릴 수 있다. 게다가 스케쥴링 프로그램 상 CPUburst가 낮을수록 큐에 다시 자주 들어오기에 정렬 되다싶이 큐가 형성되어 있을 가능성이 큰데 이를 보면 quick sort같은 정렬 알고리즘에 최악의 경우의수가 나올 가능성이 커진다 그러므로 프로세스를 ready 큐에 추가할때마다 매번 정렬을 하는 것은 비효율적이고 O(logn)로 힙에 enqueue만 하면 정렬이 되므로 우선순위 큐를 사용하는 것이 가장 효율적이라고 판단하고 사용하였다.
+cpu burst로 비교해 sorting 할때 만약에 priority queue를 쓸 경우 힙 형태로 만들어져 있기에 추가할때만 O(logn)의 시간이 걸리지만 priority queue가 아니면 최악의 경우 O(n^2)의 시간이 걸릴 수 있다. 게다가 스케쥴링 프로그램 상 CPUburst가 낮을수록 큐에 다시 자주 들어오기에 정렬 되다싶이 큐가 형성되어 있을 가능성이 큰데 이를 보면 quick sort같은 정렬 알고리즘에 최악의 경우의수가 나올 가능성이 커진다 그러므로 프로세스를 ready 큐에 추가할때마다 매번 정렬을 하는 것은 비효율적이고 O(logn)로 힙에 enqueue만 하면 정렬이 되므로 우선순위 큐를 사용하는 것이  가장 효율적이라고 판단하고 사용하였다.
 
 ```java
 interface scheduling{
