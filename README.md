@@ -6,8 +6,8 @@ This implementation is modular and extensible, employing design patterns to impr
 
 - [Class Diagram](#class-diagram)
 - [Features](#Features)
-- [Usage](#Diagram)
-- [Result](#Prerequisite)
+- [Usage](#Usage)
+- [Result](#Result)
 
 ## Class Diagram
 
