@@ -42,14 +42,14 @@ javac -d out ./src/*.java
 
 ```java
 java -cp out Main <inputFileName> <schedulingAlgorithm>
-// java -cp out Main ./testtxt/test1.txt "FCFS"
+// java -cp out Main testtxt/test1.txt "FCFS"
 ```
 
 ## Result
 
-- testcase 1~3은 모든 스케쥴링 알고리즘의 결과 값이 같음
+- testcase 1~3 results are all same
 
-- testcase 4는 매번 다른 결과를 출력함
+- testcase 4 result is random
 
 - testcase 1
 
@@ -109,5 +109,5 @@ testcase 4
 ```
 
 ```java
-매번 랜덤한 값
+Random result
 ```
